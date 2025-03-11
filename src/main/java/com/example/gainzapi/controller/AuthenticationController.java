@@ -6,6 +6,8 @@ import com.example.gainzapi.model.User;
 import com.example.gainzapi.response.LoginResponse;
 import com.example.gainzapi.service.AuthenticationService;
 import com.example.gainzapi.service.JwtService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +36,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         User user = authenticationService.login(loginDto);
 
         if (user == null) {
@@ -44,6 +46,14 @@ public class AuthenticationController {
         }
 
         String token = jwtService.generateToken(user.getUsername());
+
+        Cookie cookie = new Cookie("JWT", token);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge((int)(jwtService.getExpiration() / 1000));
+
+        response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponse(
             token, jwtService.extractExpiration(token).getTime(), "Successfully logged in"

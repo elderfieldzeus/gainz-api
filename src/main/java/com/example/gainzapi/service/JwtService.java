@@ -17,7 +17,11 @@ public class JwtService {
     private String secretKey;
 
     @Value("${security.jwt.expiration-ms}")
-    private long expirationMs;
+    private Long expirationMs;
+
+    public Long getExpiration() {
+        return expirationMs;
+    }
 
     public String generateToken(String subject) {
         JwtBuilder builder = Jwts.builder()
