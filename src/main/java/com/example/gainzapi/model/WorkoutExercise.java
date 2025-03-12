@@ -22,11 +22,21 @@ public class WorkoutExercise {
     private Exercise exercise;
 
     @Column(nullable = false)
-    private int sets;
+    private Integer sets;
 
     @Column(nullable = false)
-    private int reps;
+    private Integer reps;
 
     @Column(nullable = true)
-    private int weight;
+    private Float weight;
+
+    public WorkoutExercise() {}
+
+    public WorkoutExercise(Workout workout, Exercise exercise, Integer sets, Integer reps, Float weight) {
+        this.workout = workout;
+        this.exercise = exercise;
+        this.sets = sets;
+        this.reps = reps;
+        this.weight = weight;
+    }
 }
