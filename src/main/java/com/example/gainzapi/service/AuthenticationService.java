@@ -1,7 +1,7 @@
 package com.example.gainzapi.service;
 
-import com.example.gainzapi.dto.LoginDto;
-import com.example.gainzapi.dto.SignupDto;
+import com.example.gainzapi.dto.auth.LoginDto;
+import com.example.gainzapi.dto.auth.SignupDto;
 import com.example.gainzapi.model.User;
 import com.example.gainzapi.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +30,13 @@ public class AuthenticationService {
             return null;
         }
 
-        User user = new User(signupDto.getUsername(), passwordEncoder.encode(signupDto.getPassword()));
+        checkUser = userRepository.findByEmail(signupDto.getEmail());
+
+        if (checkUser.isPresent()) {
+            return null;
+        }
+
+        User user = new User(signupDto.getUsername(), signupDto.getEmail(), passwordEncoder.encode(signupDto.getPassword()));
         return userRepository.save(user);
     }
 

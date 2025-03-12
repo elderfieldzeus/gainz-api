@@ -1,4 +1,4 @@
-package com.example.gainzapi.dto;
+package com.example.gainzapi.dto.auth;
 
 import lombok.Getter;
 import lombok.Setter;

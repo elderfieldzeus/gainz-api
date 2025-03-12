@@ -1,7 +1,7 @@
 package com.example.gainzapi.controller;
 
-import com.example.gainzapi.dto.LoginDto;
-import com.example.gainzapi.dto.SignupDto;
+import com.example.gainzapi.dto.auth.LoginDto;
+import com.example.gainzapi.dto.auth.SignupDto;
 import com.example.gainzapi.model.User;
 import com.example.gainzapi.response.LoginResponse;
 import com.example.gainzapi.service.AuthenticationService;
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
 
