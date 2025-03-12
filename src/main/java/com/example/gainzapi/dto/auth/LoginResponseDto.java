@@ -1,18 +1,16 @@
-package com.example.gainzapi.response;
+package com.example.gainzapi.dto.auth;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
-public class LoginResponse {
+public class LoginResponseDto {
     private String token;
     private Long expiration;
     private String message;
 
-    public LoginResponse(String token, Long expiration, String message) {
+    public LoginResponseDto(String token, Long expiration, String message) {
         this.token = token;
         this.expiration = expiration;
         this.message = message;

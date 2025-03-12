@@ -3,7 +3,7 @@ package com.example.gainzapi.controller;
 import com.example.gainzapi.dto.auth.LoginDto;
 import com.example.gainzapi.dto.auth.SignupDto;
 import com.example.gainzapi.model.User;
-import com.example.gainzapi.response.LoginResponse;
+import com.example.gainzapi.dto.auth.LoginResponseDto;
 import com.example.gainzapi.service.AuthenticationService;
 import com.example.gainzapi.service.JwtService;
 import jakarta.servlet.http.Cookie;
@@ -36,11 +36,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         User user = authenticationService.login(loginDto);
 
         if (user == null) {
-            return new ResponseEntity<>(new LoginResponse(
+            return new ResponseEntity<>(new LoginResponseDto(
                     "", 0L, "Invalid Credentials"
             ), HttpStatus.UNAUTHORIZED);
         }
@@ -55,7 +55,7 @@ public class AuthenticationController {
 
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(new LoginResponse(
+        return ResponseEntity.ok(new LoginResponseDto(
             token, jwtService.getExpiration(), "Successfully logged in"
         ));
 
