@@ -24,16 +24,14 @@ jobs:
             git reset --hard && git clean -fd && git pull origin main
             
             # Build the JAR
-            ./mvnw clean package -DskipTests  # Use ./gradlew build -x test for Gradle
+            ./mvnw clean package -DskipTests
             
             # Stop existing app if running
             npx pm2 stop springboot-app || true
             
             # Move the new JAR
-            mv target/*.jar app.jar  # Adjust for Gradle: mv build/libs/*.jar app.jar
-            
-            # Load environment variables from .env file
-            export $(grep -v '^#' .env | xargs)
+            mv target/*.jar app.jar  
+
             
             # Start the application with npx pm2
             npx pm2 start java --name springboot-app -- -jar app.jar
