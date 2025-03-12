@@ -56,7 +56,7 @@ public class AuthenticationController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponse(
-            token, jwtService.extractExpiration(token).getTime(), "Successfully logged in"
+            token, jwtService.getExpiration(), "Successfully logged in"
         ));
 
     }
