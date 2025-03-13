@@ -24,7 +24,7 @@ jobs:
             git reset --hard && git clean -fd && git pull origin main
             
             # Build the JAR
-            ./mvn clean package -DskipTests
+            ./mvnw clean package -DskipTests
             
             # Stop existing app if running
             npx pm2 delete springboot-app || true
@@ -32,9 +32,5 @@ jobs:
             # Move the new JAR
             mv target/*.jar app.jar  
 
-            
             # Start the application with npx pm2
             npx pm2 start java --name springboot-app -- -jar app.jar
-            
-            # Save the PM2 process
-            npx pm2 save
