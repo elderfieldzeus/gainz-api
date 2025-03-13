@@ -24,10 +24,10 @@ jobs:
             git reset --hard && git clean -fd && git pull origin main
             
             # Build the JAR
-            ./mvnw clean package -DskipTests
+            ./mvn clean package -DskipTests
             
             # Stop existing app if running
-            npx pm2 stop springboot-app || true
+            npx pm2 delete springboot-app || true
             
             # Move the new JAR
             mv target/*.jar app.jar  
