@@ -32,6 +32,8 @@ jobs:
             # Stop existing app if running
             npx pm2 delete springboot-app || true
             
+            rm app.jar
+            
             # Move the new JAR
             mv target/*.jar app.jar
 
