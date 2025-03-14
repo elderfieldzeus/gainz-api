@@ -31,6 +31,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
           http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/health", "/api/auth/**", "/swagger-ui/**", "/v3/**").permitAll()
 //                        .requestMatchers("/**").permitAll() // uncomment for security
