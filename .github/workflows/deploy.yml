@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd ${{ secrets.SERVER_PROJECT_PATH 
+            cd ${{ secrets.SERVER_PROJECT_PATH }}
             
             # I added new java here
             source ~/.bashrc
