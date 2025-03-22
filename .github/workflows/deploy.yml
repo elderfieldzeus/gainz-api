@@ -20,6 +20,9 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_PROJECT_PATH }}
             
+            # I added new java here
+            source ~/.bashrc
+            
             # Pull the latest changes
             git reset --hard && git clean -fd && git pull origin main
             
@@ -29,8 +32,12 @@ jobs:
             # Stop existing app if running
             npx pm2 delete springboot-app || true
             
+            rm app.jar
+            
             # Move the new JAR
-            mv target/*.jar app.jar  
+            mv target/*.jar app.jar
 
             # Start the application with npx pm2
             npx pm2 start java --name springboot-app -- -jar app.jar
+            
+            npx pm2 save
