@@ -41,7 +41,7 @@ public class AuthenticationController {
 
         if (user == null) {
             return new ResponseEntity<>(new LoginResponseDto(
-                    "", 0L, "Invalid Credentials"
+                    -1L, "", "","", 0L, "Invalid Credentials"
             ), HttpStatus.UNAUTHORIZED);
         }
 
@@ -56,7 +56,11 @@ public class AuthenticationController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponseDto(
-            token, jwtService.getExpiration(), "Successfully logged in"
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            token,
+            jwtService.getExpiration(), "Successfully logged in"
         ));
 
     }
