@@ -41,7 +41,7 @@ public class AuthenticationService {
     }
 
     public User login(LoginDto loginDto) {
-        Optional<User> checkUser = userRepository.findByUsername(loginDto.getUsername());
+        Optional<User> checkUser = userRepository.findByEmail(loginDto.getEmail());
 
         if (checkUser.isEmpty()) {
             throw new RuntimeException("User not found");
@@ -53,7 +53,7 @@ public class AuthenticationService {
         }
 
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+                new UsernamePasswordAuthenticationToken(user.getUsername(), loginDto.getPassword())
         );
 
         return user;
